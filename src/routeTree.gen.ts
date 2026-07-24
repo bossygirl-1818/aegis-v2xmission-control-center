@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
+import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as PhasesRouteImport } from './routes/phases'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
@@ -18,6 +19,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TeamRoute = TeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgressRoute = ProgressRouteImport.update({
@@ -46,6 +52,7 @@ export interface FileRoutesByFullPath {
   '/architecture': typeof ArchitectureRoute
   '/phases': typeof PhasesRoute
   '/progress': typeof ProgressRoute
+  '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/architecture': typeof ArchitectureRoute
   '/phases': typeof PhasesRoute
   '/progress': typeof ProgressRoute
+  '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/architecture': typeof ArchitectureRoute
   '/phases': typeof PhasesRoute
   '/progress': typeof ProgressRoute
+  '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/architecture' | '/phases' | '/progress' | '/team'
+  fullPaths:
+    | '/'
+    | '/architecture'
+    | '/phases'
+    | '/progress'
+    | '/tasks'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/architecture' | '/phases' | '/progress' | '/team'
-  id: '__root__' | '/' | '/architecture' | '/phases' | '/progress' | '/team'
+  to: '/' | '/architecture' | '/phases' | '/progress' | '/tasks' | '/team'
+  id:
+    | '__root__'
+    | '/'
+    | '/architecture'
+    | '/phases'
+    | '/progress'
+    | '/tasks'
+    | '/team'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -76,6 +98,7 @@ export interface RootRouteChildren {
   ArchitectureRoute: typeof ArchitectureRoute
   PhasesRoute: typeof PhasesRoute
   ProgressRoute: typeof ProgressRoute
+  TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
 }
 
@@ -86,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/team'
       preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/progress': {
@@ -124,6 +154,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArchitectureRoute: ArchitectureRoute,
   PhasesRoute: PhasesRoute,
   ProgressRoute: ProgressRoute,
+  TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
