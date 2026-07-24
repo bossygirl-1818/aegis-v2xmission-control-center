@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as ResearchRouteImport } from './routes/research'
 import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as PhasesRouteImport } from './routes/phases'
 import { Route as ArchitectureRouteImport } from './routes/architecture'
@@ -24,6 +25,11 @@ const TeamRoute = TeamRouteImport.update({
 const TasksRoute = TasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgressRoute = ProgressRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/architecture': typeof ArchitectureRoute
   '/phases': typeof PhasesRoute
   '/progress': typeof ProgressRoute
+  '/research': typeof ResearchRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/architecture': typeof ArchitectureRoute
   '/phases': typeof PhasesRoute
   '/progress': typeof ProgressRoute
+  '/research': typeof ResearchRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/architecture': typeof ArchitectureRoute
   '/phases': typeof PhasesRoute
   '/progress': typeof ProgressRoute
+  '/research': typeof ResearchRoute
   '/tasks': typeof TasksRoute
   '/team': typeof TeamRoute
 }
@@ -79,16 +88,25 @@ export interface FileRouteTypes {
     | '/architecture'
     | '/phases'
     | '/progress'
+    | '/research'
     | '/tasks'
     | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/architecture' | '/phases' | '/progress' | '/tasks' | '/team'
+  to:
+    | '/'
+    | '/architecture'
+    | '/phases'
+    | '/progress'
+    | '/research'
+    | '/tasks'
+    | '/team'
   id:
     | '__root__'
     | '/'
     | '/architecture'
     | '/phases'
     | '/progress'
+    | '/research'
     | '/tasks'
     | '/team'
   fileRoutesById: FileRoutesById
@@ -98,6 +116,7 @@ export interface RootRouteChildren {
   ArchitectureRoute: typeof ArchitectureRoute
   PhasesRoute: typeof PhasesRoute
   ProgressRoute: typeof ProgressRoute
+  ResearchRoute: typeof ResearchRoute
   TasksRoute: typeof TasksRoute
   TeamRoute: typeof TeamRoute
 }
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/tasks'
       fullPath: '/tasks'
       preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/progress': {
@@ -154,9 +180,20 @@ const rootRouteChildren: RootRouteChildren = {
   ArchitectureRoute: ArchitectureRoute,
   PhasesRoute: PhasesRoute,
   ProgressRoute: ProgressRoute,
+  ResearchRoute: ResearchRoute,
   TasksRoute: TasksRoute,
   TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
