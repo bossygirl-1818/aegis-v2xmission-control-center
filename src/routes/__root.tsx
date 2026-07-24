@@ -81,16 +81,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Trust-aware Digital Twin framework for 6G V2X — mission control for the Aegis-V2X autonomous vehicle research prototype.",
+          "Trust-aware Digital Twin mission control for 6G V2X autonomous vehicle research — Aegis-V2X.",
       },
-      { property: "og:title", content: "Aegis-V2X Mission Control Center" },
+      { property: "og:title", content: "Aegis-V2X · Mission Control Center" },
       {
         property: "og:description",
         content:
-          "Calibrated Trust-Driven Joint Adaptive Control for Digital Twin-Assisted V2X Communication.",
+          "Trust-aware Digital Twin mission control for 6G V2X autonomous vehicle research — Aegis-V2X.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Aegis-V2X · Mission Control Center" },
+      { name: "twitter:description", content: "Trust-aware Digital Twin mission control for 6G V2X autonomous vehicle research — Aegis-V2X." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/61b797e4-c7a7-41f3-a387-f48f18ab4214/id-preview-e5c5ae1a--9f9c783b-8303-4de7-9b95-486e9794a501.lovable.app-1784895147135.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/61b797e4-c7a7-41f3-a387-f48f18ab4214/id-preview-e5c5ae1a--9f9c783b-8303-4de7-9b95-486e9794a501.lovable.app-1784895147135.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

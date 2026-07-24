@@ -22,11 +22,11 @@ export const Route = createFileRoute("/")({
         content:
           "Trust-aware Digital Twin mission control for 6G V2X autonomous vehicle research — Aegis-V2X.",
       },
-      { property: "og:title", content: "Aegis-V2X Mission Control Center" },
+      { property: "og:title", content: "Aegis-V2X · Mission Control Center" },
       {
         property: "og:description",
         content:
-          "Calibrated Trust-Driven Joint Adaptive Control for Digital Twin-Assisted V2X.",
+          "Trust-aware Digital Twin mission control for 6G V2X autonomous vehicle research — Aegis-V2X.",
       },
     ],
   }),
