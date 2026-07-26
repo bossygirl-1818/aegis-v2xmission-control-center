@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-v2x.jpg";
 import { MissionShell } from "@/components/mission-shell";
 import { overallProgress, phases } from "@/lib/mission-data";
-import { useMissionStatus } from "@/lib/use-mission-status";
+import { useMissionStatus, formatMetric } from "@/lib/use-mission-status";
 import {
   ArrowRight,
   Cpu,
@@ -142,8 +142,16 @@ function Home() {
               value={loading ? "…" : `P${activeNumber}`}
               sub={activeSub}
             />
-            <Telemetry label="Twin Trust τ" value="0.87" sub="calibrated · Δτ 0.03" />
-            <Telemetry label="Edge Latency" value="8.4ms" sub="Jetson Orin · TRT" />
+            <Telemetry
+              label="Twin Trust τ"
+              value={status ? formatMetric(status.metrics.twin_trust) : "Not yet measured"}
+              sub="calibrated · Δτ 0.03"
+            />
+            <Telemetry
+              label="Edge Latency"
+              value={status ? formatMetric(status.metrics.edge_latency_ms, "ms") : "Not yet measured"}
+              sub="Jetson Orin · TRT"
+            />
           </div>
         </div>
       </section>

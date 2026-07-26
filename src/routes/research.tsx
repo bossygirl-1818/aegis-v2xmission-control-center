@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MissionShell } from "@/components/mission-shell";
-import { paperSections } from "@/lib/mission-data";
 import { CalendarDays, FileText } from "lucide-react";
 
 export const Route = createFileRoute("/research")({
@@ -15,11 +14,22 @@ export const Route = createFileRoute("/research")({
   component: ResearchPage,
 });
 
-const experiments = [
-  { model: "PointPillars (baseline)", acc: "62.4 mAP", rmse: "—", tce: "—", lat: "14.2 ms", mem: "1.6 GB", pwr: "13.4 W" },
-  { model: "V2X-ViT (cooperative)", acc: "71.8 mAP", rmse: "—", tce: "—", lat: "17.9 ms", mem: "1.9 GB", pwr: "14.1 W" },
-  { model: "GRU Channel Predictor", acc: "—", rmse: "0.041", tce: "—", lat: "1.8 ms", mem: "84 MB", pwr: "0.9 W" },
-  { model: "TwinTrust Estimator", acc: "—", rmse: "—", tce: "0.023", lat: "2.4 ms", mem: "110 MB", pwr: "1.1 W" },
+const plannedModels = [
+  "PointPillars (baseline)",
+  "V2X-ViT (cooperative)",
+  "GRU Channel Predictor",
+  "TwinTrust Estimator",
+];
+
+const plannedSections = [
+  "Literature Survey",
+  "Methodology",
+  "Experiments",
+  "Results",
+  "Figures",
+  "Tables",
+  "Discussion",
+  "Submission Prep",
 ];
 
 function ResearchPage() {
@@ -37,19 +47,22 @@ function ResearchPage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary">Paper Sections</span>
           </div>
           <h2 className="mt-2 font-display text-2xl">IEEE submission pipeline</h2>
-          <div className="mt-6 space-y-4">
-            {paperSections.map((s) => (
-              <div key={s.name}>
-                <div className="flex items-center justify-between text-sm">
-                  <span>{s.name}</span>
-                  <span className="font-mono text-xs text-primary">{s.progress}%</span>
-                </div>
-                <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                  <div className="h-full rounded-full bg-gradient-to-r from-[var(--cyan)] via-[var(--neon)] to-[var(--violet)]" style={{ width: `${s.progress}%` }} />
-                </div>
-              </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Aspirational targets — paper writing has not started. Progress will be tracked once Phase 7 begins.
+          </p>
+          <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {plannedSections.map((s) => (
+              <li
+                key={s}
+                className="flex items-center justify-between rounded-md border border-border bg-white/[0.02] px-3 py-2 text-sm"
+              >
+                <span>{s}</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                  Planned
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <aside className="glass-panel p-8 h-fit">
@@ -57,15 +70,18 @@ function ResearchPage() {
             <CalendarDays className="h-5 w-5 text-primary" />
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary">Timeline</span>
           </div>
-          <h2 className="mt-2 font-display text-xl">Key dates</h2>
+          <h2 className="mt-2 font-display text-xl">Planned targets</h2>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Working targets — not yet confirmed.
+          </p>
           <ol className="mt-6 space-y-4 text-sm">
             <li>
-              <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Implementation Completion</div>
-              <div className="mt-1">15 September 2026</div>
+              <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Implementation Target</div>
+              <div className="mt-1">15 September 2026 (planned)</div>
             </li>
             <li>
               <div className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Paper Writing Window</div>
-              <div className="mt-1">16 September 2026 → 17 September 2026</div>
+              <div className="mt-1">16 September 2026 → 17 September 2026 (planned)</div>
             </li>
           </ol>
         </aside>
@@ -88,19 +104,23 @@ function ResearchPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
-              {experiments.map((e) => (
-                <tr key={e.model} className="hover:bg-white/[0.02]">
-                  <td className="py-3 pr-4 font-medium">{e.model}</td>
-                  <td className="py-3 pr-4 font-mono text-primary">{e.acc}</td>
-                  <td className="py-3 pr-4 font-mono text-primary">{e.rmse}</td>
-                  <td className="py-3 pr-4 font-mono text-primary">{e.tce}</td>
-                  <td className="py-3 pr-4 font-mono">{e.lat}</td>
-                  <td className="py-3 pr-4 font-mono">{e.mem}</td>
-                  <td className="py-3 pr-4 font-mono">{e.pwr}</td>
+              {plannedModels.map((m) => (
+                <tr key={m} className="hover:bg-white/[0.02]">
+                  <td className="py-3 pr-4 font-medium">{m}</td>
+                  <td className="py-3 pr-4 font-mono text-muted-foreground">—</td>
+                  <td className="py-3 pr-4 font-mono text-muted-foreground">—</td>
+                  <td className="py-3 pr-4 font-mono text-muted-foreground">—</td>
+                  <td className="py-3 pr-4 font-mono text-muted-foreground">—</td>
+                  <td className="py-3 pr-4 font-mono text-muted-foreground">—</td>
+                  <td className="py-3 pr-4 font-mono text-muted-foreground">—</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="mt-6 rounded-md border border-dashed border-border/60 px-4 py-6 text-center text-xs text-muted-foreground">
+            Not yet available — pending Phase 4–6 experiments. KPIs will populate once training,
+            trust calibration, and Jetson Orin benchmarking runs are executed.
+          </div>
         </div>
       </section>
     </MissionShell>
