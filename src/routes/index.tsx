@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-v2x.jpg";
 import { MissionShell } from "@/components/mission-shell";
 import { overallProgress, phases } from "@/lib/mission-data";
+import { useMissionStatus } from "@/lib/use-mission-status";
 import {
   ArrowRight,
   Cpu,
@@ -60,8 +61,14 @@ const solutions = [
 ];
 
 function Home() {
-  const progress = overallProgress();
-  const active = phases.find((p) => p.status !== "completed") ?? phases[0];
+  const { data: status, loading, error } = useMissionStatus();
+  const fallbackProgress = overallProgress();
+  const fallbackActive = phases.find((p) => p.status !== "completed") ?? phases[0];
+  const progress = status ? status.overall_mission_pct : fallbackProgress;
+  const activeNumber = status ? status.active_phase.number : fallbackActive.number;
+  const activeName = status ? status.active_phase.title : fallbackActive.name;
+  const overallSub = loading ? "syncing…" : error ? "offline · cached" : "live · GitHub";
+  const activeSub = loading ? "syncing…" : activeName;
 
   return (
     <MissionShell>
@@ -125,8 +132,16 @@ function Home() {
         {/* Telemetry bar */}
         <div className="relative border-t border-border/60 bg-background/60 backdrop-blur-md">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border/50">
-            <Telemetry label="Overall Mission" value={`${progress}%`} sub="calibrated" />
-            <Telemetry label="Active Phase" value={`P${active.number}`} sub={active.name} />
+            <Telemetry
+              label="Overall Mission"
+              value={loading ? "…" : `${progress}%`}
+              sub={overallSub}
+            />
+            <Telemetry
+              label="Active Phase"
+              value={loading ? "…" : `P${activeNumber}`}
+              sub={activeSub}
+            />
             <Telemetry label="Twin Trust τ" value="0.87" sub="calibrated · Δτ 0.03" />
             <Telemetry label="Edge Latency" value="8.4ms" sub="Jetson Orin · TRT" />
           </div>
