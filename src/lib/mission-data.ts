@@ -287,7 +287,7 @@ export const architecture: ArchNode[] = [
     purpose: "Calibrated probabilistic trust in the Digital Twin",
     input: "Perception residuals, staleness, uncertainty",
     output: "Twin Trust score τ ∈ [0, 1] with calibration",
-    tech: "Bayesian NN • Temperature scaling",
+    tech: "Weighted calibration • Temperature scaling",
   },
   {
     id: "policy",
