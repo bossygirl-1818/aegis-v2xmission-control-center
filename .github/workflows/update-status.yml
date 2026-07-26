@@ -1,0 +1,43 @@
+name: Update Mission Status
+
+# Regenerates docs/status.json from docs/TASKS.md on every push to main,
+# and commits it back if it changed. The Lovable dashboard fetches
+# docs/status.json directly from this repo's raw GitHub URL, so this is
+# the mechanism that makes the dashboard update automatically after a
+# push — no redeploy of the dashboard needed.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/TASKS.md"
+      - "scripts/generate_status.py"
+  workflow_dispatch: {}   # allows manually re-running from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Generate docs/status.json from docs/TASKS.md
+        run: python scripts/generate_status.py
+
+      - name: Commit and push if status.json changed
+        run: |
+          git config user.name "aegis-v2x-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if git diff --quiet -- docs/status.json; then
+            echo "No change to docs/status.json — nothing to commit."
+          else
+            git add docs/status.json
+            git commit -m "chore: auto-update docs/status.json [skip ci]"
+            git push
+          fi
