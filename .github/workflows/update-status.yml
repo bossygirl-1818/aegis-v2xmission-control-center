@@ -34,10 +34,10 @@ jobs:
         run: |
           git config user.name "aegis-v2x-bot"
           git config user.email "actions@users.noreply.github.com"
-          if git diff --quiet -- docs/status.json; then
-            echo "No change to docs/status.json — nothing to commit."
-          else
+          if [ -n "$(git status --porcelain -- docs/status.json)" ]; then
             git add docs/status.json
             git commit -m "chore: auto-update docs/status.json [skip ci]"
             git push
+          else
+            echo "No change to docs/status.json — nothing to commit."
           fi
