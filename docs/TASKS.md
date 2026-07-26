@@ -33,7 +33,7 @@ Status: complete
 ## Phase 2 — Simulation & Dataset Generation (Owner: Haridharani)
 Status: active
 
-- [ ] CARLA scenario templates
+- [x] CARLA scenario templates
 - [ ] Sionna RT scene calibration
 - [ ] Multimodal dataset generation pipeline
 - [ ] Dataset validation report
