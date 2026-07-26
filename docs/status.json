@@ -1,0 +1,236 @@
+{
+  "generated_at": "2026-07-26T11:44:21.529326+00:00",
+  "overall_mission_pct": 14,
+  "active_phase": {
+    "number": 2,
+    "title": "Simulation & Dataset Generation",
+    "owner": "Haridharani"
+  },
+  "metrics": {
+    "twin_trust": {
+      "value": null,
+      "status": "pending"
+    },
+    "edge_latency_ms": {
+      "value": null,
+      "status": "pending"
+    },
+    "power_watts": {
+      "value": null,
+      "status": "pending"
+    }
+  },
+  "phases": [
+    {
+      "number": 1,
+      "title": "Research & Architecture",
+      "owner": "Vaishnavi",
+      "status": "complete",
+      "completion_pct": 100,
+      "task_count": 3,
+      "tasks_done": 3
+    },
+    {
+      "number": 2,
+      "title": "Simulation & Dataset Generation",
+      "owner": "Haridharani",
+      "status": "active",
+      "completion_pct": 0,
+      "task_count": 4,
+      "tasks_done": 0
+    },
+    {
+      "number": 3,
+      "title": "Backend Foundation & Software Infrastructure",
+      "owner": "Logapriya",
+      "status": "planned",
+      "completion_pct": 0,
+      "task_count": 4,
+      "tasks_done": 0
+    },
+    {
+      "number": 4,
+      "title": "AI Perception & Trust Estimation",
+      "owner": "Vaishnavi",
+      "status": "planned",
+      "completion_pct": 0,
+      "task_count": 5,
+      "tasks_done": 0
+    },
+    {
+      "number": 5,
+      "title": "TwinTrust-AP Decision Engine",
+      "owner": "Vaishnavi",
+      "status": "planned",
+      "completion_pct": 0,
+      "task_count": 3,
+      "tasks_done": 0
+    },
+    {
+      "number": 6,
+      "title": "Edge AI Deployment & Hardware Validation",
+      "owner": "Khushi",
+      "status": "planned",
+      "completion_pct": 0,
+      "task_count": 4,
+      "tasks_done": 0
+    },
+    {
+      "number": 7,
+      "title": "Integration, Experiments & IEEE Paper",
+      "owner": "Entire Team \u2014 Lead: Vaishnavi",
+      "status": "planned",
+      "completion_pct": 0,
+      "task_count": 5,
+      "tasks_done": 0
+    }
+  ],
+  "task_board": {
+    "planned": [
+      {
+        "phase": 3,
+        "title": "FastAPI service skeleton",
+        "owner": "Logapriya"
+      },
+      {
+        "phase": 3,
+        "title": "PostgreSQL schema",
+        "owner": "Logapriya"
+      },
+      {
+        "phase": 3,
+        "title": "REST API endpoints",
+        "owner": "Logapriya"
+      },
+      {
+        "phase": 3,
+        "title": "Dashboard support APIs",
+        "owner": "Logapriya"
+      },
+      {
+        "phase": 4,
+        "title": "PointPillars baseline",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 4,
+        "title": "V2X-ViT integration",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 4,
+        "title": "GRU channel predictor",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 4,
+        "title": "Trust calibration study",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 4,
+        "title": "Criticality estimator",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 5,
+        "title": "TAHS policy prototype",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 5,
+        "title": "FSDP policy table generation",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 5,
+        "title": "Joint decision integration + unit tests",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 6,
+        "title": "ONNX export pipeline",
+        "owner": "Khushi"
+      },
+      {
+        "phase": 6,
+        "title": "TensorRT export pipeline",
+        "owner": "Khushi"
+      },
+      {
+        "phase": 6,
+        "title": "Jetson Orin deployment",
+        "owner": "Khushi"
+      },
+      {
+        "phase": 6,
+        "title": "Jetson power profiling rig",
+        "owner": "Khushi"
+      },
+      {
+        "phase": 7,
+        "title": "End-to-end integration",
+        "owner": "Entire Team \u2014 Lead: Vaishnavi"
+      },
+      {
+        "phase": 7,
+        "title": "Baseline comparisons",
+        "owner": "Entire Team \u2014 Lead: Vaishnavi"
+      },
+      {
+        "phase": 7,
+        "title": "Ablation studies",
+        "owner": "Entire Team \u2014 Lead: Vaishnavi"
+      },
+      {
+        "phase": 7,
+        "title": "IEEE figure set",
+        "owner": "Entire Team \u2014 Lead: Vaishnavi"
+      },
+      {
+        "phase": 7,
+        "title": "Manuscript draft",
+        "owner": "Entire Team \u2014 Lead: Vaishnavi"
+      }
+    ],
+    "in_progress": [
+      {
+        "phase": 2,
+        "title": "CARLA scenario templates",
+        "owner": "Haridharani"
+      },
+      {
+        "phase": 2,
+        "title": "Sionna RT scene calibration",
+        "owner": "Haridharani"
+      },
+      {
+        "phase": 2,
+        "title": "Multimodal dataset generation pipeline",
+        "owner": "Haridharani"
+      },
+      {
+        "phase": 2,
+        "title": "Dataset validation report",
+        "owner": "Haridharani"
+      }
+    ],
+    "completed": [
+      {
+        "phase": 1,
+        "title": "Finalize mathematical formulation",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 1,
+        "title": "Publish architecture blueprint",
+        "owner": "Vaishnavi"
+      },
+      {
+        "phase": 1,
+        "title": "Repository structure & docs",
+        "owner": "Vaishnavi"
+      }
+    ]
+  }
+}
