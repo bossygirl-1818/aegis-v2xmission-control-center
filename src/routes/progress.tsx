@@ -1,11 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MissionShell } from "@/components/mission-shell";
 import { overallProgress, phases } from "@/lib/mission-data";
-import {
-  formatMetric,
-  mapPhaseStatus,
-  useMissionStatus,
-} from "@/lib/use-mission-status";
+import { mapPhaseStatus, useMissionStatus } from "@/lib/use-mission-status";
 
 export const Route = createFileRoute("/progress")({
   head: () => ({
