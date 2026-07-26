@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-v2x.jpg";
 import { MissionShell } from "@/components/mission-shell";
 import { overallProgress, phases } from "@/lib/mission-data";
-import { useMissionStatus } from "@/lib/use-mission-status";
+import { useMissionStatus, formatMetric } from "@/lib/use-mission-status";
 import {
   ArrowRight,
   Cpu,
