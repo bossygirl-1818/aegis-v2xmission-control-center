@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T11:38:53.913436+00:00",
+  "generated_at": "2026-07-28T11:45:10.123801+00:00",
   "overall_mission_pct": 18,
   "active_phase": {
     "number": 2,
@@ -196,7 +196,7 @@
     "in_progress": [
       {
         "phase": 2,
-        "title": "Sionna RT scene calibration",
+        "title": "CARLA scenario templates",
         "owner": "Haridharani"
       },
       {
@@ -228,7 +228,7 @@
       },
       {
         "phase": 2,
-        "title": "CARLA scenario templates",
+        "title": "Sionna RT scene calibration",
         "owner": "Haridharani"
       }
     ]
