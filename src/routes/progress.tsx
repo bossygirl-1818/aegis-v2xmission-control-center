@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { RefreshCw } from "lucide-react";
 import { MissionShell } from "@/components/mission-shell";
 import { overallProgress, phases } from "@/lib/mission-data";
 import { mapPhaseStatus, useMissionStatus } from "@/lib/use-mission-status";
@@ -57,7 +58,16 @@ function Gauge({
 }
 
 function ProgressPage() {
-  const { data: status, loading, error } = useMissionStatus();
+  const { data: status, loading, error, lastFetchedAt, refetch } = useMissionStatus({
+    pollMs: 60_000,
+  });
+
+  const generatedAt = status?.generated_at ?? null;
+  const lastUpdatedLabel = generatedAt
+    ? new Date(generatedAt).toLocaleString()
+    : lastFetchedAt
+      ? new Date(lastFetchedAt).toLocaleString()
+      : "—";
 
   const overall = status ? status.overall_mission_pct : overallProgress();
   const fallbackActive = phases.find((p) => p.status !== "completed") ?? phases[0];
@@ -111,19 +121,37 @@ function ProgressPage() {
 
   return (
     <MissionShell>
-      <div className="mb-10">
-        <span className="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Live Telemetry</span>
-        <h1 className="mt-2 font-display text-3xl md:text-5xl">Mission progress monitor</h1>
-        {loading && (
-          <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-            Syncing live status…
-          </p>
-        )}
-        {error && (
-          <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-destructive">
-            Live status unavailable — showing cached values.
-          </p>
-        )}
+      <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <span className="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Live Telemetry</span>
+          <h1 className="mt-2 font-display text-3xl md:text-5xl">Mission progress monitor</h1>
+          {loading && !status && (
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+              Syncing live status…
+            </p>
+          )}
+          {error && (
+            <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-destructive">
+              Live status unavailable — showing cached values.
+            </p>
+          )}
+        </div>
+        <div className="flex items-center gap-3" suppressHydrationWarning>
+          <div className="text-right font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+            <div>Last updated</div>
+            <div className="mt-1 text-primary" suppressHydrationWarning>{lastUpdatedLabel}</div>
+          </div>
+          <button
+            type="button"
+            onClick={refetch}
+            disabled={loading}
+            className="inline-flex items-center gap-2 rounded-md border border-border bg-background/40 px-3 py-2 font-mono text-[11px] uppercase tracking-widest text-foreground backdrop-blur-md transition hover:bg-white/5 disabled:opacity-50"
+            aria-label="Refresh telemetry"
+          >
+            <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
+            Refresh
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
