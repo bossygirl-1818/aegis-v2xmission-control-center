@@ -34,7 +34,7 @@ Status: complete
 Status: active
 
 - [ ] CARLA scenario templates
-- [x] Sionna RT scene calibration
+- [ ] Sionna RT scene calibration
 - [ ] Multimodal dataset generation pipeline
 - [ ] Dataset validation report
 
