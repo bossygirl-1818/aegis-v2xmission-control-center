@@ -65,7 +65,7 @@ export function useMissionStatus() {
     let cancelled = false;
     setLoading(true);
     setError(null);
-    fetch(STATUS_URL, { cache: "no-store" })
+    fetch(`${STATUS_URL}?t=${Date.now()}`, { cache: "no-store" })
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
