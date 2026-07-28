@@ -236,28 +236,33 @@ function Home() {
           </Link>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {phases.map((p) => (
-            <Link
-              key={p.id}
-              to="/phases"
-              className="group glass-panel p-5 transition hover:border-primary/60"
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-                  Phase 0{p.number}
-                </span>
-                <StatusPill status={p.status} />
-              </div>
-              <h3 className="mt-3 font-display text-base leading-snug">{p.name}</h3>
-              <p className="mt-2 text-xs text-muted-foreground">Owner · {p.owner}</p>
-              <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-[var(--cyan)] via-[var(--neon)] to-[var(--violet)]"
-                  style={{ width: `${p.progress}%` }}
-                />
-              </div>
-            </Link>
-          ))}
+          {phases.map((p) => {
+            const remotePhase = status?.phases.find((rp) => rp.number === p.number);
+            const uiStatus = remotePhase ? mapPhaseStatus(remotePhase.status) : p.status;
+            const uiProgress = remotePhase ? remotePhase.completion_pct : p.progress;
+            return (
+              <Link
+                key={p.id}
+                to="/phases"
+                className="group glass-panel p-5 transition hover:border-primary/60"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
+                    Phase 0{p.number}
+                  </span>
+                  <StatusPill status={uiStatus} />
+                </div>
+                <h3 className="mt-3 font-display text-base leading-snug">{p.name}</h3>
+                <p className="mt-2 text-xs text-muted-foreground">Owner · {p.owner}</p>
+                <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[var(--cyan)] via-[var(--neon)] to-[var(--violet)]"
+                    style={{ width: `${uiProgress}%` }}
+                  />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </MissionShell>
