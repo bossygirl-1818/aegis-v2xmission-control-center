@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-26T12:33:45.332332+00:00",
-  "overall_mission_pct": 14,
+  "generated_at": "2026-07-28T11:38:53.913436+00:00",
+  "overall_mission_pct": 18,
   "active_phase": {
     "number": 2,
     "title": "Simulation & Dataset Generation",
@@ -35,9 +35,9 @@
       "title": "Simulation & Dataset Generation",
       "owner": "Haridharani",
       "status": "active",
-      "completion_pct": 0,
+      "completion_pct": 25,
       "task_count": 4,
-      "tasks_done": 0
+      "tasks_done": 1
     },
     {
       "number": 3,
@@ -196,11 +196,6 @@
     "in_progress": [
       {
         "phase": 2,
-        "title": "CARLA scenario templates",
-        "owner": "Haridharani"
-      },
-      {
-        "phase": 2,
         "title": "Sionna RT scene calibration",
         "owner": "Haridharani"
       },
@@ -230,6 +225,11 @@
         "phase": 1,
         "title": "Repository structure & docs",
         "owner": "Vaishnavi"
+      },
+      {
+        "phase": 2,
+        "title": "CARLA scenario templates",
+        "owner": "Haridharani"
       }
     ]
   }
