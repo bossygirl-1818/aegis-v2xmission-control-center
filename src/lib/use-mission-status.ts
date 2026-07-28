@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface StatusPhase {
   number: number;
@@ -56,36 +56,56 @@ export function formatMetric(m: StatusMetric, unit = ""): string {
   return `${m.value}${unit}`;
 }
 
-export function useMissionStatus() {
+export function useMissionStatus(options?: { pollMs?: number }) {
+  const pollMs = options?.pollMs;
   const [data, setData] = useState<MissionStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lastFetchedAt, setLastFetchedAt] = useState<number | null>(null);
+  const [nonce, setNonce] = useState(0);
+
+  const refetch = useCallback(() => setNonce((n) => n + 1), []);
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
-    setError(null);
-    fetch(`${STATUS_URL}?t=${Date.now()}`, { cache: "no-store" })
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((json: MissionStatus) => {
-        if (!cancelled) {
-          setData(json);
-          setLoading(false);
-        }
-      })
-      .catch((e: unknown) => {
-        if (!cancelled) {
-          setError(e instanceof Error ? e.message : "Failed to load status");
-          setLoading(false);
-        }
-      });
+    const load = () => {
+      setLoading(true);
+      setError(null);
+      fetch(`${STATUS_URL}?t=${Date.now()}`, { cache: "no-store" })
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
+        .then((json: MissionStatus) => {
+          if (!cancelled) {
+            setData(json);
+            setLastFetchedAt(Date.now());
+            setLoading(false);
+          }
+        })
+        .catch((e: unknown) => {
+          if (!cancelled) {
+            setError(e instanceof Error ? e.message : "Failed to load status");
+            setLoading(false);
+          }
+        });
+    };
+    load();
+    let interval: ReturnType<typeof setInterval> | undefined;
+    if (pollMs && pollMs > 0) {
+      interval = setInterval(load, pollMs);
+    }
     return () => {
       cancelled = true;
+      if (interval) clearInterval(interval);
     };
-  }, []);
+  }, [pollMs, nonce]);
 
-  return { data, loading, error };
+  return { data, loading, error, lastFetchedAt, refetch };
+}
+
+export function useHydrated() {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  return hydrated;
 }
